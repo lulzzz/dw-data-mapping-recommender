@@ -1,0 +1,32 @@
+{
+  "mappings": [
+    {
+      "input": [
+        "body",
+        "listAllFlightsResponse",
+        "return",
+        "airlineName",
+        "code",
+        "departureDate",
+        "destination",
+        "emptySeats",
+        "origin",
+        "planeType",
+        "price",
+        "attributes",
+        "protocolHeaders",
+        "variables"
+      ],
+      "output": [
+        "airline",
+        "flightCode",
+        "fromAirportCode",
+        "toAirportCode",
+        "departureDate",
+        "emptySeats",
+        "price",
+        "planeType"
+      ]
+    }
+  ]
+}

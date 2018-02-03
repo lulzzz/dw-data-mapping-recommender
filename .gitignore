@@ -6,6 +6,15 @@ __pycache__/
 # C extensions
 *.so
 
+#PyCharm
+.idea/
+
+#Keys
+*.pem
+
+#Datasets
+datasets/*
+
 # Distribution / packaging
 .Python
 env/
