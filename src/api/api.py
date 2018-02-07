@@ -36,8 +36,10 @@ class DwRecommender(Resource):
                 output_1_tokenized_words = tokenizer.normalize_tokens(tokens=output_1_tokenized_words)
                 processed_output_sentences_tokens.append(output_1_tokenized_words)
 
-            processed_input_sentences = recommender_formatter.format(tokenized_sentences=processed_input_sentences_tokens)
-            processed_output_sentences = recommender_formatter.format(tokenized_sentences=processed_output_sentences_tokens)
+            processed_input_sentences = recommender_formatter.format(
+                tokenized_sentences=processed_input_sentences_tokens)
+            processed_output_sentences = recommender_formatter.format(
+                tokenized_sentences=processed_output_sentences_tokens)
 
             for input_sentence in processed_input_sentences:
                 recommended_words.append(
