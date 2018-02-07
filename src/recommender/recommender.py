@@ -7,15 +7,15 @@ class Recommender(object):
         self.model = gensim.models.KeyedVectors.load_word2vec_format('../datasets/GoogleNews-vectors-negative300.bin',
                                                                      binary=True)
 
-    def recommend(self, sentence_dict, recommendation_list):
-        probabilities = []
-        for word_to_recommend in recommendation_list:
-            probabilities.append(
-                self._calculate_distance(first_sentence=sentence_dict['sentence'],
-                                         second_sentence=word_to_recommend['sentence']))
+    def recommend(self, sentence, recommendations):
+        distances = []
         recomendation_result = collections.defaultdict(dict)
-        for word, probability in zip(recommendation_list, probabilities):
-            recomendation_result[sentence_dict['sentence']][word['sentence']] = probability
+        for word_to_recommend in recommendations:
+            distances.append(
+                self._calculate_distance(first_sentence=sentence,
+                                         second_sentence=word_to_recommend))
+        for word, probability in zip(recommendations, distances):
+            recomendation_result[sentence][word] = probability
 
         return recomendation_result
 

@@ -21,18 +21,28 @@ class DwRecommender(Resource):
         json = request.get_json()
         mappings = json['mappings']
         for mapping in mappings:
-            input_1_tokenized_words = tokenizer.tokenize_cammel_case_words(sentences=mapping['input'])
-            output_1_tokenized_words = tokenizer.tokenize_cammel_case_words(sentences=mapping['output'])
-
-            input_1_recommender_sentences_dict = recommender_formatter.format(tokenized_words=input_1_tokenized_words)
-            output_1_recommender_sentence_dict = recommender_formatter.format(tokenized_words=output_1_tokenized_words)
-
             recommended_words = []
-            for sentence_dict in input_1_recommender_sentences_dict:
-                # TODO: I THINK THE RECOMMEND DOESNT NEED TO KNOW ABOUT THE DICT STRUCTURE AND JUST RECEIVE A SENTENCE AND A LIST OF SENTENCES
+            input_1_tokenized_words = tokenizer.tokenize_by(sentences=mapping['input'], method='cammel_case_words')
+            output_1_tokenized_words = tokenizer.tokenize_by(sentences=mapping['output'], method='cammel_case_words')
+
+            processed_input_sentences_tokens = []
+            processed_output_sentences_tokens = []
+            for input_tokens in input_1_tokenized_words:
+                input_1_tokenized_words = tokenizer.split_by(tokens=input_tokens, delimiter="/")
+                input_1_tokenized_words = tokenizer.normalize_tokens(tokens=input_1_tokenized_words)
+                processed_input_sentences_tokens.append(input_1_tokenized_words)
+            for output_tokens in output_1_tokenized_words:
+                output_1_tokenized_words = tokenizer.split_by(tokens=output_tokens, delimiter="/")
+                output_1_tokenized_words = tokenizer.normalize_tokens(tokens=output_1_tokenized_words)
+                processed_output_sentences_tokens.append(output_1_tokenized_words)
+
+            processed_input_sentences = recommender_formatter.format(tokenized_sentences=processed_input_sentences_tokens)
+            processed_output_sentences = recommender_formatter.format(tokenized_sentences=processed_output_sentences_tokens)
+
+            for input_sentence in processed_input_sentences:
                 recommended_words.append(
-                    recommender.recommend(sentence_dict=sentence_dict,
-                                          recommendation_list=output_1_recommender_sentence_dict))
+                    recommender.recommend(sentence=input_sentence,
+                                          recommendations=processed_output_sentences))
 
         return jsonify(recommended_words)
 
