@@ -25,22 +25,22 @@ class Recommender(object):
         return recomendation_result
 
     def _calculate_similarity_distance(self, sentence, corpus):
-        length_sentence = len(sentence.split(" "))
-        minimum_length_corpus_sentence = len(min(corpus, key=lambda a: len(a.split(" "))).split(" "))
-
-        new_corpus = []
-        if minimum_length_corpus_sentence > length_sentence:
-            for c in corpus:
-                new_corpus.append(" ".join(c.split(" ")[-length_sentence:]))
-            new_sentence = " ".join(sentence.split(" ")[-length_sentence:])
-            corpus = new_corpus
-            sentence = new_sentence
-        else:
-            for c in corpus:
-                new_corpus.append(" ".join(c.split(" ")[-minimum_length_corpus_sentence:]))
-            new_sentence = " ".join(sentence.split(" ")[-minimum_length_corpus_sentence:])
-            corpus = new_corpus
-            sentence = new_sentence
+        # length_sentence = len(sentence.split(" "))
+        # minimum_length_corpus_sentence = len(min(corpus, key=lambda a: len(a.split(" "))).split(" "))
+        #
+        # new_corpus = []
+        # if minimum_length_corpus_sentence > length_sentence:
+        #     for c in corpus:
+        #         new_corpus.append(" ".join(c.split(" ")[-length_sentence:]))
+        #     new_sentence = " ".join(sentence.split(" ")[-length_sentence:])
+        #     corpus = new_corpus
+        #     sentence = new_sentence
+        # else:
+        #     for c in corpus:
+        #         new_corpus.append(" ".join(c.split(" ")[-minimum_length_corpus_sentence:]))
+        #     new_sentence = " ".join(sentence.split(" ")[-minimum_length_corpus_sentence:])
+        #     corpus = new_corpus
+        #     sentence = new_sentence
 
         # if len(corpus) > 10:
         #     similarities = []
