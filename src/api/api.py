@@ -1,6 +1,8 @@
+import collections
+import numpy as np
+
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
-import numpy as np
 
 from src.classifiers.classifiers import MaximumProbabilityClassifier
 from src.formatter.recommender_formatter import RecommenderFormatter
@@ -23,13 +25,20 @@ class DwRecommender(Resource):
 
     def post(self):
         json = request.get_json()
-        mappings = json['mappings']
-        for mapping in mappings:
-            X = [mapping['input']]
-            y = [mapping['output']]
-            recommended_words = maximum_probability_classifier.classify(X=X, y=y, recommender=recommender)
+        X = [json['incoming']]
+        y = [json['expected']]
 
-        return jsonify(recommended_words)
+        recommended_words = maximum_probability_classifier.classify(X=X, y=y, recommender=recommender)
+
+        parsed_recommended_words = collections.defaultdict(dict)
+        i = 0
+        for s in recommended_words:
+            for (key, value) in s.items():
+                for (_key, _value) in value.items():
+                    parsed_recommended_words[X[0][i]][_key] = _value
+            i += 1
+
+        return jsonify(parsed_recommended_words)
 
 
 class xxx(Resource):
