@@ -9,4 +9,3 @@ class RecommenderFormatter(Formatter):
             sentences.append(sentence)
 
         return sentences
-
