@@ -1,14 +1,16 @@
 import gensim
 import collections
 import numpy as np
+
 from gensim.similarities import WmdSimilarity
 
 
 class Recommender(object):
     def __init__(self):
-        self.model = gensim.models.KeyedVectors.load_word2vec_format('datasets/GoogleNews-vectors-negative300.bin',
-                                                                     binary=True)
-        self.model.init_sims(replace=True)
+        # self.model = gensim.models.KeyedVectors.load_word2vec_format('datasets/GoogleNews-vectors-negative300.bin',
+        #                                                              binary=True)
+        self.model = gensim.models.KeyedVectors.load_word2vec_format('datasets/crawl-300d-2M.vec')
+        # self.model.init_sims(replace=True)
 
     def recommend(self, sentence, recommendations):
         similarity_distances = []
@@ -53,11 +55,6 @@ class Recommender(object):
 
         similarity_query_response = WmdSimilarity(corpus, self.model, normalize_w2v_and_replace=False)
         similarities = similarity_query_response[sentence]
-
-        # for i in len(similarities):
-        #     print('sim = %.4f' % similarities[i][1])
-        #     result.append(corpus[similarities[i][0]])
-        #     result.append(similarities[i][1])
 
         return similarities
 
