@@ -30,15 +30,23 @@ class DwRecommender(Resource):
 
         recommended_words = maximum_probability_classifier.classify(X=X, y=y, recommender=recommender)
 
-        parsed_recommended_words = collections.defaultdict(dict)
-        i = 0
-        for s in recommended_words:
-            for (key, value) in s.items():
-                for (_key, _value) in value.items():
-                    parsed_recommended_words[X[0][i]][_key] = _value
-            i += 1
+        # parsed_recommended_words = collections.defaultdict(dict)
+        # i = 0
+        # for s in recommended_words:
+        #     for (key, value) in s.items():
+        #         for (_key, _value) in value.items():
+        #
+        #             parsed_y = tokenizer.tokenize_by(sentences=y, method='cammel_case_words')
+        #             processed_input_sentences_tokens = []
+        #             for _y_p in parsed_y:
+        #                 parsed_y = tokenizer.split_by(tokens=_y_p, delimiter="/")
+        #                 parsed_y = tokenizer.normalize_tokens(tokens=parsed_y)
+        #                 processed_input_sentences_tokens.append(parsed_y)
+        #
+        #             parsed_recommended_words[X[0][i]][_key] = _value
+        #     i += 1
 
-        return jsonify(parsed_recommended_words)
+        return jsonify(recommended_words)
 
 
 class xxx(Resource):
