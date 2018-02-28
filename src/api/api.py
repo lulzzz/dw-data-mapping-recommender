@@ -11,7 +11,7 @@ from src.tokenizer.tokenizer import Tokenizer
 from sanic import Sanic
 from sanic.response import json
 
-model = gensim.models.KeyedVectors.load_word2vec_format('datasets/crawl-300d-2M.vec')
+model = gensim.models.KeyedVectors.load_word2vec_format('datasets/wiki-news-300d-1M.vec')
 # self.model.init_sims(replace=True)
 shallow_extractors = ShallowExtractors(model=model)
 

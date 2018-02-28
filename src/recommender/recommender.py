@@ -17,8 +17,8 @@ class Recommender(object):
                 recommendation_metric(sentence=sentence, corpus=recommendations)).tolist()
             metric_results[sentence][recommendation_metric.__name__] = similarity_distance
 
-        for word, metric_result in zip(recommendations, metric_results.values()):
-            for k, v in metric_result.values():
-                recomendation_result[sentence][word] = metric_result
+        for metric_name in metric_results.values():
+            for word in recommendations:
+                recomendation_result[sentence][word] = list(metric_name.values())
 
         return recomendation_result

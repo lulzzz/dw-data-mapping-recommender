@@ -1,0 +1,94 @@
+{
+  "rootDirectory": "",
+  "datasetDirectory": "datasets/notMNIST_small",
+  "projectName": "Trust",
+  "sourceFilename": "bach.wav",
+  "featureExtractors": [
+    {
+      "Emefecece": {
+        "moduleDir": "feature_extractors.Emefecece",
+        "parameters": {
+          "nFilters": 40,
+          "nCoeffs": [
+            13,
+            20,
+            25,
+            30
+          ],
+          "sampleRate": 0,
+          "win_s": "512",
+          "hop_s": "128",
+          "mode": "default"
+        }
+      }
+    }
+  ],
+  "spaceTransformers": [
+    {
+      "PCA": {
+        "moduleDir": "sklearn.decomposition",
+        "parameters": {
+          "n_components": 40
+        }
+      }
+    }
+  ],
+  "classifiers": [
+    {
+      "LogisticRegression": {
+        "moduleDir": "sklearn.linear_model",
+        "parameters": {
+          "multi_class": "multinomial",
+          "solver": "lbfgs",
+          "verbose": 1,
+          "max_iter": "1000"
+        }
+      }
+    },
+    {
+      "SVR": {
+        "moduleDir": "sklearn.svm",
+        "parameters": {
+          "C": 1,
+          "kernel": "rbf",
+          "verbose": true
+        }
+      }
+    }
+  ],
+  "graphs": [
+    {
+      "plotly_graph": {
+        "moduleDir": "graph.plotly_graph",
+        "visualizations": [
+          {
+            "layout": {
+              "title": "Accuracy of algorithms",
+              "yaxis": {
+                "title": "Metric"
+              }
+            },
+            "traces": [
+              {
+                "Bar": {
+                  "moduleDir": "plotly.graph_objs",
+                  "parameters": {
+                    "x": "Algorithms",
+                    "y": "TestScore"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "plt_graph": {
+        "moduleDir": "graph.plt_graph",
+        "train_scores": "TrainScores",
+        "test_scores": "TestScores"
+      }
+    }
+  ]
+}
