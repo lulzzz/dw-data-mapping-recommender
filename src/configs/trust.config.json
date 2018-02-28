@@ -1,8 +1,7 @@
 {
   "rootDirectory": "",
   "datasetDirectory": "datasets/notMNIST_small",
-  "projectName": "Trust",
-  "sourceFilename": "bach.wav",
+  "projectName": "DeepMuleLearning",
   "featureExtractors": [
     {
       "Emefecece": {
